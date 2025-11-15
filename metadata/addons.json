@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "hide-sidebar",
+    "name": "Hide Sidebar",
+    "directory": "/addons/sidebar",
+    "runat": "website",
+    "description": "Adds a button to hide the sidebar"
+  },
+  {
+    "slug": "hide-media-area",
+    "name": "Hide Media Area",
+    "directory": "/addons/hidemediaarea",
+    "runat": "editor",
+    "description": "Adds a button to hide the media area"
+  },
+  {
+    "slug": "auto-save",
+    "name": "Auto Save",
+    "directory": "/addons/autosave",
+    "runat": "editor",
+    "description": "Automatically saves your work every 1 minute to 15 minutes"
+  }
+]
