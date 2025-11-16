@@ -2,7 +2,7 @@
   {
     "slug": "hide-sidebar",
     "name": "Hide Sidebar",
-    "directory": "/addons/sidebar",
+    "directory": "/addons/hidesidebar",
     "runat": "website",
     "description": "Adds a button to hide the sidebar"
   },
