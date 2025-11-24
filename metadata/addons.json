@@ -14,10 +14,10 @@
     "description": "Adds a button to hide the media area"
   },
   {
-    "slug": "auto-save",
-    "name": "Auto Save",
-    "directory": "/addons/autosave",
+    "slug": "no-red-syllables",
+    "name": "No Red Syllable Counter",
+    "directory": "/addons/no-red-syllable-count",
     "runat": "editor",
-    "description": "Automatically saves your work every 1 minute to 15 minutes"
+    "description": "Removes the annoying feature where if a line is 100+ chars it's syllable counter becomes red."
   }
 ]
