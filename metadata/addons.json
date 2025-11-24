@@ -19,5 +19,12 @@
     "directory": "/addons/no-red-syllable-count",
     "runat": "editor",
     "description": "Removes the annoying feature where if a line is 100+ chars it's syllable counter becomes red."
+  },
+  {
+  "slug": "auto-textarea-width",
+  "name": "Auto Textarea Width",
+  "directory": "/addons/auto-textarea-width",
+  "runat": "editor",
+  "description": "Automatically resizes the lyrics textarea to fit the longest line without wrapping. Adds horizontal scrollbar if it hits page width."
   }
 ]
