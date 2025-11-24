@@ -18,29 +18,25 @@ container.classList.add('textarea-custom-scrollbar');
 	// Inject custom scrollbar styles
 	const style = document.createElement('style');
 	style.textContent = `
-	.textarea-custom-scrollbar::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-	}
+.textarea-custom-scrollbar::-webkit-scrollbar-track {
+	background: #1e1e1e; /* dark background track */
+	border-radius: 4px;
+}
 
-	.textarea-custom-scrollbar::-webkit-scrollbar-track {
-		background: #f0f0f0;
-		border-radius: 4px;
-	}
+.textarea-custom-scrollbar::-webkit-scrollbar-thumb {
+	background: #555;     /* dark thumb */
+	border-radius: 4px;
+}
 
-	.textarea-custom-scrollbar::-webkit-scrollbar-thumb {
-		background: #888;
-		border-radius: 4px;
-	}
+.textarea-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #777;
+}
 
-	.textarea-custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background: #555;
-	}
+.textarea-custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #555 #1e1e1e; /* Firefox */
+}
 
-	.textarea-custom-scrollbar {
-		scrollbar-width: thin; /* Firefox */
-		scrollbar-color: #888 #f0f0f0; /* Firefox */
-	}
 	`;
 	document.head.appendChild(style);
 
