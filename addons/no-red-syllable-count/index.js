@@ -57,7 +57,6 @@ function newRender() {
 		items
 	);
 }
-});
 
 
 addon.onToggled = (t) => {
