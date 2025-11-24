@@ -22,9 +22,9 @@
   },
   {
   "slug": "auto-textarea-width",
-  "name": "Auto Textarea Width",
+  "name": "Lyric Editor Scrollbars",
   "directory": "/addons/auto-textarea-width",
   "runat": "editor",
-  "description": "Automatically resizes the lyrics textarea to fit the longest line without wrapping. Adds horizontal scrollbar if it hits page width."
+  "description": "Add scrollbars to the lyrics editor"
   }
 ]
