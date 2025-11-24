@@ -61,8 +61,8 @@ function newRender() {
 
 addon.onToggled = (t) => {
 if (t) {
-addon.rappad.syllableCounter.render = newRender.bind(addon.rappad.syllableCounter);
+addon.rappad.editor.syllableCounter.render = newRender.bind(addon.rappad.editor.syllableCounter);
 } else {
-addon.rappad.syllableCounter.render = oldRender.bind(addon.rappad.syllableCounter);
+addon.rappad.editor.syllableCounter.render = oldRender.bind(addon.rappad.editor.syllableCounter);
 }
 }
