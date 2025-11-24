@@ -65,4 +65,5 @@ addon.rappad.editor.syllableCounter.render = newRender.bind(addon.rappad.editor.
 } else {
 addon.rappad.editor.syllableCounter.render = oldRender.bind(addon.rappad.editor.syllableCounter);
 }
+addon.rappad.editor.syllableCounter.forceUpdate();
 }
