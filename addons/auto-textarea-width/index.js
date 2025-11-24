@@ -2,12 +2,13 @@
 	const textareaRef = () => addon.rappad.editor.react.refs.lyricsTextbox;
 
 	let oldRender = null;
+	let inputListener = null;
 
 	function resizeTextarea() {
 		const textarea = textareaRef();
 		if (!textarea) return;
 
-		const lines = textarea.value.split('\n');
+		const lines = (textarea.value || textarea.placeholder || '').split('\n');
 		let maxWidth = 0;
 
 		const span = document.createElement('span');
@@ -23,18 +24,31 @@
 
 		document.body.removeChild(span);
 
+		// Only add scrollbar if it would exceed viewport
+		if (maxWidth + 4 >= window.innerWidth) {
+			textarea.style.width = window.innerWidth + 'px';
+			textarea.style.overflowX = 'auto';
+		} else {
+			textarea.style.width = maxWidth + 4 + 'px';
+			textarea.style.overflowX = 'hidden';
+		}
+
 		textarea.style.whiteSpace = 'pre';
-		textarea.style.overflowX = 'auto';
-		textarea.style.minWidth = '100px';
-		textarea.style.width = Math.min(maxWidth + 4, window.innerWidth) + 'px';
 	}
 
 	function newRenderSongLyrics(...args) {
 		const result = oldRender.apply(this, args);
 
-		// wait a frame for React to finish rendering
 		requestAnimationFrame(() => {
+			const textarea = textareaRef();
+			if (!textarea) return;
+
 			resizeTextarea();
+
+			if (!inputListener) {
+				inputListener = () => resizeTextarea();
+				textarea.addEventListener('input', inputListener);
+			}
 		});
 
 		return result;
@@ -43,14 +57,19 @@
 	addon.onToggled = function(enabled) {
 		if (!addon.rappad || !addon.rappad.editor || !addon.rappad.editor.react) return;
 
+		const textarea = textareaRef();
+
 		if (enabled) {
 			if (!oldRender) oldRender = addon.rappad.editor.react.renderSongLyrics;
 			addon.rappad.editor.react.renderSongLyrics = newRenderSongLyrics;
-			// trigger resize for current textarea
-			requestAnimationFrame(resizeTextarea);
+			requestAnimationFrame(() => {
+				if (textarea) resizeTextarea();
+			});
 		} else {
-			if (oldRender) {
-				addon.rappad.editor.react.renderSongLyrics = oldRender;
+			if (oldRender) addon.rappad.editor.react.renderSongLyrics = oldRender;
+			if (textarea && inputListener) {
+				textarea.removeEventListener('input', inputListener);
+				inputListener = null;
 			}
 		}
 	};
