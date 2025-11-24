@@ -9,7 +9,7 @@
 		if (!textarea) return;
 
 		textarea.style.whiteSpace = 'pre';
-		textarea.style.overflow = 'auto';
+		textarea.style.overflowX = 'auto';
 const container = textarea.parentElement; // or the actual scroll div
 container.classList.add('textarea-custom-scrollbar');
 
