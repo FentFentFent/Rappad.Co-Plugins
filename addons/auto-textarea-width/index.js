@@ -4,34 +4,43 @@
 	let oldRender = null;
 	let inputListener = null;
 
-function resizeTextarea() {
-	const textarea = textareaRef();
-	if (!textarea) return;
+	function resizeTextarea() {
+		const textarea = textareaRef();
+		if (!textarea) return;
 
-	const lines = (textarea.value || textarea.placeholder || '').split('\n');
-	let maxWidth = 0;
+		textarea.style.whiteSpace = 'pre';
+		textarea.style.overflow = 'auto';
+		textarea.classList.add('textarea-custom-scrollbar');
+	}
 
-	const span = document.createElement('span');
-	document.body.appendChild(span);
-	span.style.visibility = 'hidden';
-	span.style.whiteSpace = 'pre';
-	span.style.font = getComputedStyle(textarea).font;
+	// Inject custom scrollbar styles
+	const style = document.createElement('style');
+	style.textContent = `
+	.textarea-custom-scrollbar::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
 
-	lines.forEach(line => {
-		span.textContent = line || ' ';
-		maxWidth = Math.max(maxWidth, span.offsetWidth);
-	});
+	.textarea-custom-scrollbar::-webkit-scrollbar-track {
+		background: #f0f0f0;
+		border-radius: 4px;
+	}
 
-	document.body.removeChild(span);
+	.textarea-custom-scrollbar::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 4px;
+	}
 
-	const padding = 20; // optional padding for comfort
-	const safeMaxWidth = window.innerWidth - padding;
+	.textarea-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
 
-	textarea.style.whiteSpace = 'pre';
-	textarea.style.overflowX = 'auto';
-	textarea.style.width = Math.min(maxWidth + 4, safeMaxWidth) + 'px';
-};
-
+	.textarea-custom-scrollbar {
+		scrollbar-width: thin; /* Firefox */
+		scrollbar-color: #888 #f0f0f0; /* Firefox */
+	}
+	`;
+	document.head.appendChild(style);
 
 	function newRenderSongLyrics(...args) {
 		const result = oldRender.apply(this, args);
@@ -59,14 +68,20 @@ function resizeTextarea() {
 		if (enabled) {
 			if (!oldRender) oldRender = addon.rappad.editor.react.renderSongLyrics;
 			addon.rappad.editor.react.renderSongLyrics = newRenderSongLyrics;
+
 			requestAnimationFrame(() => {
 				if (textarea) resizeTextarea();
 			});
 		} else {
-			if (oldRender) addon.rappad.editor.react.renderSongLyrics = oldRender;
-			if (textarea && inputListener) {
-				textarea.removeEventListener('input', inputListener);
-				inputListener = null;
+			if (textarea) {
+				textarea.classList.remove('textarea-custom-scrollbar');
+				if (inputListener) {
+					textarea.removeEventListener('input', inputListener);
+					inputListener = null;
+				}
+			}
+			if (oldRender) {
+				addon.rappad.editor.react.renderSongLyrics = oldRender;
 			}
 		}
 	};
