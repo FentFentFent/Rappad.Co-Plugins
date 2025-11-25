@@ -26,5 +26,12 @@
   "directory": "/addons/auto-textarea-width",
   "runat": "editor",
   "description": "Add scrollbars to the lyrics editor"
+  },
+  {
+    "slug": "all-raps-at-once",
+    "name": "All Raps At Once",
+    "directory": "/addons/all-raps-at-once",
+    "runat": "overview",
+    "description": "Shows all your raps on your dashboard instead of just the first 5-25"
   }
 ]
